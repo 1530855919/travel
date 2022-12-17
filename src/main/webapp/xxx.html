@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>黑马旅游</title>
+  <style type="text/css">
+    html{height:100%}
+    body{height:100%;margin:0px;padding:0px}
+    #container{height:100%}
+  </style>
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=KajQMcaxt88wjiMIvmVuCeKFTtg9jZrD">
+  </script>
+  <script src="js/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+<div class="prosum_box_2">
+  <!-- 当前景点的百度地图定位功能-->
+  <div class="baiduMap">
+    <div id="container" style="width:500px;height:320px"></div>
+  </div>
+  <div class="weatherInfo">
+    <div class="forecastsWeather">
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function createMap(lon, lat, title, address) {
+// 创建地图实例
+    var map = new BMapGL.Map("container");
+// 创建点坐标
+    var point = new BMapGL.Point(lon, lat);
+
+// 初始化地图，设置中心点坐标和地图级别
+    map.centerAndZoom(point, 12);
+
+
+    map.enableScrollWheelZoom(true);  //开启鼠标滚轮缩放
+    map.setHeading(64.5);   //设置地图旋转角度
+    map.setTilt(73);       //设置地图的倾斜角度
+
+    var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
+    map.addControl(scaleCtrl);
+    var zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
+    map.addControl(zoomCtrl);
+
+    var opts = {
+      width: 250,     // 信息窗口宽度
+      height: 100,    // 信息窗口高度
+      title: title  // 信息窗口标题
+    }
+    var infoWindow = new BMapGL.InfoWindow("地址:" + address, opts);  // 创建信息窗口对象
+    map.openInfoWindow(infoWindow, map.getCenter());        // 打开信息窗口
+
+  }
+
+  $(function(){
+    createMap(116.366794,39.915309,"标题","地点");
+  })
+</script>
+</body>
+</html>
+

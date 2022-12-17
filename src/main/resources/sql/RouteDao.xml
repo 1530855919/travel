@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.travel.dao.RouteDao">
+    <!--自定义分页-->
+    <select id="findTotalCount" parameterType="Map" resultType="int">
+        select count(*) from tab_route where cid = #{cid}
+    </select>
+    <select id="findByPage" parameterType="Map" resultType="cn.itcast.travel.domain.Route">
+        select * from tab_route where  cid = #{cid} limit #{start},#{pageSize}
+    </select>
+
+    <!--mybatis分页插件-->
+    <select id="findAll" resultType="Route" parameterType="integer">
+        select * from tab_route where cid=#{cid}
+    </select>
+
+    <select id="findOneById" parameterType="int" resultType="cn.itcast.travel.domain.Route">
+        select * from tab_route where rid = #{rid}
+    </select>
+
+    <update id="updateCount" parameterType="String">
+        UPDATE tab_route SET count = count + 1 WHERE rid = #{rid};
+    </update>
+
+    <select id="findList" resultType="Route">
+        SELECT * FROM tab_route ORDER BY count DESC LIMIT 5;
+</select>
+</mapper>
